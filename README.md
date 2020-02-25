@@ -1,14 +1,14 @@
-# delijn-card
+# stib-mvib-card
 
-This card generates a passages card for the De Lijn public transport service in Flanders (Belgium).
+This card generates a passages card for the STIB/MVIB public transport service in Brussels (Belgium).
 
 ![example](example.png)
 
-## Options
+## Options TODO, not yet up to date
 
 | Name | Type | Requirement | Description
 | ---- | ---- | ------- | -----------
-| type | string | **Required** | `custom:delijn-card`
+| type | string | **Required** | `custom:stib-mvib-card`
 | entity | string | **Required** | The entity_id of the entity you want to show.
 | title | string | **Optional** | Add a custom title to the card.
 | config_type | string | **Optional** | 'default' for standard setup, 'raw' for raw entity data, 'columns' for defining a custom list of columns. If this option is not added the default setup will be shown in the card.
@@ -25,38 +25,42 @@ This card generates a passages card for the De Lijn public transport service in 
 
 ### Step 1
 
-Install `delijn-card` by copying `delijn-card.js` from this repo to `<config directory>/www/delijn-card.js` of your Home Assistant instance.
+Install `stib-mvib-card` by copying `stib-mvib-card.js` from this repo to `<config directory>/www/stib-mvib/stib-mvib-card.js` of your Home Assistant instance.
 
 **Example:**
 
 ```bash
-wget https://github.com/bollewolle/delijn-card/raw/master/delijn-card.js
-mv delijn-card.js ~/.homeassistant/www/
+wget https://github.com/helldog136/stib-mvib-card/raw/master/stib-mvib-card.js
+mv stib-mvib-card.js ~/.homeassistant/www/stib-mvib/
 ```
 
 ### Step 2
 
-Set up the De Lijn custom sensor.
+Set up the STIB/MVIB custom sensor.
 
 **Example:**
 
 ```yaml
 sensor:
-  - platform: delijn
-    api_key: '<put your data.delijn.be API subscriptionkey here>'
-    next_departure:
-    - stop_id: '200552'
-      number_of_departures: 10
+  - platform: stib-mvib
+    client_id: '<put your STIB API client_id here>'
+    client_secret: '<put your STIB API client_secret here>'
+    lang: 'fr'
+    stops:
+    - stop_name: 'Scherdemael'
+      filtered_out_stop_ids:
+      - 3733
+      max_passages: 3
 ```
-**_Note_**: replace with the API subscription key you generated with you data.delijn.be developer account.
+**_Note_**: replace with the correct API id/secret you generated with your opendata stib developer account.
 
 ### Step 3
 
-Link `delijn-card` inside you `ui-lovelace.yaml` or via the `Raw config editor` when using the `Configure UI` in the Home-Assistant interface directly.
+Link `stib-mvib-card` inside you `ui-lovelace.yaml` or via the `Raw config editor` when using the `Configure UI` in the Home-Assistant interface directly.
 
 ```yaml
 resources:
-  - url: /local/stib-mvib-card.js
+  - url: /local/stib-mvib/stib-mvib-card.js
     type: js
 ```
 
@@ -68,68 +72,21 @@ Add a custom element in your `ui-lovelace.yaml`. Or when using the `Configure UI
 
 Example with default layout in the `ui-lovelace.yaml`:
 ```yaml
-      - type: 'custom:delijn-card'
-        entity: sensor.korenmarkt_perron_2_gent
-        title: 'Korenmarkt Perron 2, Gent'
+      - type: 'custom:stib-mvib-card'
+        entity: sensor.scherdemael
+        title: 'Scherdemael'
 
 ```
 Same when going via the `Configure UI`:
 ```yaml
-entity: sensor.korenmarkt_perron_2_gent
-title: 'Korenmarkt Perron 2, Gent'
-type: 'custom:delijn-card'
+entity: sensor.scherdemael
+title: 'Scherdemael'
+type: 'custom:stib-mvib-card'
 
 
 ```
-
-![example](example.png)
-
-Example with a custom layout in the `ui-lovelace.yaml`. In this case also the scheduled and real-time times are shown:
-```yaml
-      - type: 'custom:delijn-card'
-        entity: sensor.brugsepoort_gent
-        title: 'Brugsepoort, Gent'
-        config_type: columns
-        columns:
-          - field: line_number_public
-            title: Line
-          - field: line_transport_type
-            title: Type
-          - field: final_destination
-            title: Towards
-          - field: due_in_min
-            title: Due in (min)
-          - field: due_at_rt
-            title: Due at (real-time)
-          - field: due_at_sch
-            title: Due at (scheduled)
-
-```
-
-Same when going via the `Configure UI`:
-```yaml
-columns:
-  - field: line_number_public
-    title: Line
-  - field: line_transport_type
-    title: Type
-  - field: final_destination
-    title: Towards
-  - field: due_in_min
-    title: Due in (min)
-  - field: due_at_realtime
-    title: Due at (real-time)
-  - field: due_at_schedule
-    title: Due at (scheduled)
-config_type: columns
-entity: sensor.brugsepoort_gent
-title: 'Brugsepoort, Gent'
-type: 'custom:delijn-card'
-
-```
-![example](example2.png)
 
 
 ## Credits
 
-Thanks to [cgtobi's rmv-card](https://github.com/cgtobi/rmv-card) and [Ian Richardson's list-card](https://github.com/custom-cards/list-card) for all the initial work and inspiration.
+This card is adapted from the code of https://github.com/DaGolle/delijn-card/blob/master/delijn-card.js, Kudos to him!
