@@ -56,7 +56,7 @@ Link `delijn-card` inside you `ui-lovelace.yaml` or via the `Raw config editor` 
 
 ```yaml
 resources:
-  - url: /local/delijn-card.js
+  - url: /local/stib-mvib-card.js
     type: js
 ```
 
