@@ -28,11 +28,11 @@ class STIBMVIBCard extends HTMLElement {
     const style = document.createElement('style');
     style.textContent = `
       ha-card {
-        /* sample css */
+        padding: 0 0 0 8px;
       }
       table {
         width: 100%;
-        padding: 0 32px 0 32px;
+        padding: 0 10px 0 15px;
         padding-bottom: 16px;
         text-align: left;
       }
@@ -63,6 +63,14 @@ class STIBMVIBCard extends HTMLElement {
         font-size:12px;
         font-size:0.75rem;
         line-height:1.6em
+      }
+      .arriving_in_min{
+        text-align: left;
+        padding: 0 0 0 5px;
+      }
+      .line_type{
+        text-align: left;
+        padding: 0 0 0 2px;
       }
     `;
 
@@ -150,7 +158,15 @@ class STIBMVIBCard extends HTMLElement {
     }
     else if (field == 'line_type') {
       // ideally we show icons here for the different types (not yet implemented)
-      cell = `<td class="${field}">${passage[field]}</td>`;
+      if (passage[field] == 'M'){
+        cell = `<td class="${field}"><ha-icon icon="mdi:subway"></ha-icon></td>`;
+      }else if (passage[field] == 'T'){
+        cell = `<td class="${field}"><ha-icon icon="mdi:tram"></ha-icon></td>`;
+      }else if (passage[field] == 'B'){
+        cell = `<td class="${field}"><ha-icon icon="mdi:bus"></ha-icon></td>`;
+      }else {
+        cell = `<td class="${field}">${passage[field]}</td>`;
+      }
     }
     else if (field == 'arriving_in_min') {
       cell = `<td class="${field}">${passage['arriving_in']['min']}${STIBMVIBCard.SP}${STIBMVIBCard.MIN}</td>`;
