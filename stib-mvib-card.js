@@ -33,6 +33,7 @@ class STIBMVIBCard extends HTMLElement {
       table {
         width: 100%;
         padding: 0 32px 0 32px;
+        padding-bottom: 16px;
         text-align: left;
       }
       thead th {
