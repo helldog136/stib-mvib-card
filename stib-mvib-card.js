@@ -47,7 +47,7 @@ class STIBMVIBCard extends HTMLElement {
         text-decoration-line: none;
         font-weight: normal;
       }
-      .line-number{
+      .line_id{
         display:block;
         float:left;
         min-width:2.75em;
@@ -92,7 +92,7 @@ class STIBMVIBCard extends HTMLElement {
     const config_type = config.config_type;
     // set of default columns
 
-  var columns = [{'field': 'line_number', 'title': 'Line'},
+  var columns = [{'field': 'line_id', 'title': 'Line'},
              {'field': 'line_type', 'title': 'Type'},
              {'field': 'destination', 'title': 'Towards'},
              {'field': 'arriving_in_min', 'title': 'Due in (min)'}];
@@ -150,11 +150,11 @@ class STIBMVIBCard extends HTMLElement {
   formatCell(field, passage) {
     let cell = "";
     // show proper line number format of STIB for the line_number_public
-    if (field == 'line_number') {
+    if (field == 'line_id') {
       const bordercol = passage.line_color;
       const backcol   = passage.line_color;
       const color     = '#ffffff';
-      cell = `<td class="line-number" style="border-color: ${bordercol}; background-color: ${backcol}; color: ${color}; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">${passage[field]}</td>`;
+      cell = `<td class="line_id" style="border-color: ${bordercol}; background-color: ${backcol}; color: ${color}; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">${passage[field]}</td>`;
     }
     else if (field == 'line_type') {
       // ideally we show icons here for the different types (not yet implemented)
