@@ -95,7 +95,8 @@ class STIBMVIBCard extends HTMLElement {
   var columns = [{'field': 'line_id', 'title': 'Line'},
              {'field': 'line_type', 'title': 'Type'},
              {'field': 'destination', 'title': 'Towards'},
-             {'field': 'arriving_in_min', 'title': 'Due in (min)'}];
+             {'field': 'arriving_in_min', 'title': 'Due in (min)'},
+             {'field': 'message', 'title': 'Message'}];
 
     if (config_type == "columns") {
       columns = config.columns;
